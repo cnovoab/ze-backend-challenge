@@ -1,0 +1,6 @@
+{
+  "orm": {
+    "database": "ze-backend-challenge-test",
+    "logging": false
+  }
+}
