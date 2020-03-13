@@ -45,6 +45,7 @@
   "dependencies": {
     "config": "^3.3.0",
     "express": "^4.17.1",
+    "express-healthcheck": "^0.1.0",
     "pg": "^7.18.2",
     "raven": "^2.6.4",
     "typeorm": "^0.2.24"
@@ -62,5 +63,6 @@
     "tslint": "^6.1.0",
     "tslint-config-airbnb": "^5.11.2",
     "typescript": "^3.8.3"
-  }
+  },
+  "license": "MIT"
 }

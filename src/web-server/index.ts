@@ -1,6 +1,4 @@
-/* istanbul ignore file */
 import * as express from 'express';
-import * as logger from 'morgan';
 import * as config from 'config';
 import * as Raven from 'raven';
 import routes from './routes';
@@ -12,12 +10,6 @@ export const app = express();
 if (config.util.getEnv('NODE_CONFIG_ENV') !== 'test') {
   app.use(Raven.requestHandler());
   app.use(Raven.errorHandler());
-  app.use(
-    logger(
-      config.get('server.logFormat'),
-      { skip: req => (req.baseUrl || req.originalUrl).includes('healthcheck') }
-    )
-  );
 }
 
 app.use(config.get('server.baseUrl'), routes);

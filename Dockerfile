@@ -21,7 +21,7 @@ RUN yarn install --production
 RUN rm -rf ./src
 
 FROM base AS production
-LABEL Name="ComparaOnline ze-backend-challenge" Version="2.0"
+LABEL Name="ze-backend-challenge" Version="2.0"
 ARG ENVIRONMENT="production"
 ENV NODE_ENV=${ENVIRONMENT}
 COPY --from=clean /code ./

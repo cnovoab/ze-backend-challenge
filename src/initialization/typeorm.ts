@@ -1,4 +1,3 @@
-/* istanbul ignore file */
 import * as config from 'config';
 import { createConnection, getConnection } from 'typeorm';
 import { application } from '../application';
@@ -14,7 +13,8 @@ export const connection = async () => createConnection({
   migrations: [
     'src/migrations/*.ts',
     'build/migrations/*.js'
-  ]
+  ],
+  synchronize: true
 });
 application.onStart(() => connection());
 application.onShutdown(() => getConnection().close());

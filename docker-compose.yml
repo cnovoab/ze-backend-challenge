@@ -13,14 +13,7 @@ services:
       - NODE_CONFIG_ENV=development
       - |
         NODE_CONFIG={
-          "kafka": {
-            "global": {
-              "kafkaHost": "kafka:9092"
-            }
-          },
-          "sequelize": { "host": "postgres" },
-          "orm": { "host": "postgres" },
-          "redis": { "host": "redis" }
+          "orm": { "host": "postgres" }
         }
     networks:
       - default

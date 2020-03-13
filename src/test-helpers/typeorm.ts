@@ -1,23 +1,19 @@
-import { getConnection } from 'typeorm';
 import { connection } from '../initialization/typeorm';
+import { getConnection } from 'typeorm';
 
-const clearDb = async () => {
-  try{
-    const conn = getConnection();
-    const entities = conn.entityMetadatas;
-    for (const entity of entities) {
-      const repository = await conn.getRepository(entity.name);
-      await repository.query(`TRUNCATE TABLE "${entity.tableName}" CASCADE;`);
-    }
-  } catch (error) {
-    console.error(error);
-  }
-};
-
-beforeAll(async () => await connection());
-
-beforeEach(async () => {
-  await clearDb();
+beforeAll(async () => {
+  await connection();
 });
 
-afterAll(async () => await getConnection().close());
+beforeEach(async () => {
+  expect.hasAssertions();
+  await getConnection().synchronize();
+});
+
+afterEach(async () => {
+  await getConnection().dropDatabase();
+});
+
+afterAll(async () => {
+  await getConnection().close();
+});
