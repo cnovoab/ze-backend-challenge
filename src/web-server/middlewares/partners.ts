@@ -1,6 +1,11 @@
 import * as http from 'http-status-codes';
 import { Request, Response, NextFunction } from 'express';
-import { validationResult, body } from 'express-validator';
+import {
+  validationResult,
+  body,
+  query,
+  param
+} from 'express-validator';
 
 const validationRules = () => [
   body('tradingName').notEmpty(),
@@ -12,6 +17,15 @@ const validationRules = () => [
   body('address.coordinates').isArray()
 ];
 
+const searchRules = () => [
+  query('lat').isNumeric(),
+  query('lng').isNumeric()
+];
+
+const findRules = () => [
+  param('id').isInt().toInt()
+];
+
 const validateInput = (req: Request, res: Response, next: NextFunction) => {
   const errors = validationResult(req);
   if (errors.isEmpty()) {
@@ -20,4 +34,4 @@ const validateInput = (req: Request, res: Response, next: NextFunction) => {
   return res.status(http.BAD_REQUEST).json({ errors: errors.array() });
 };
 
-export { validationRules, validateInput };
+export { validationRules, findRules, searchRules, validateInput };
