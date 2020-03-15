@@ -2,7 +2,7 @@
   "orm": {
     "username": "user",
     "password": "pass",
-    "database": "ze-backend-challenge",
+    "database": "ze-backend-partners",
     "host": "localhost",
     "dialect": "postgresql",
     "type": "postgres",

@@ -6,14 +6,14 @@ services:
       target: build
     command: 'yarn watch:cmd node --inspect=9000 -r ts-node/register src/index.ts'
     depends_on:
-      - postgres
+      - db
     environment:
       - TS_NODE_FILES=true
       - NODE_ENV=development
       - NODE_CONFIG_ENV=development
       - |
         NODE_CONFIG={
-          "orm": { "host": "postgres" }
+          "orm": { "host": "db" }
         }
     networks:
       - default
@@ -22,17 +22,17 @@ services:
     volumes:
       - '.:/code'
       - /code/node_modules
-  postgres:
-    image: 'postgres:9.6-alpine'
+  db:
+    image: 'mdillon/postgis:9.6'
     environment:
-      POSTGRES_DB: ze-backend-challenge
+      POSTGRES_DB: ze-backend-partners
       POSTGRES_PASSWORD: pass
       POSTGRES_USER: user
     networks:
       - default
     volumes:
-      - 'postgres:/var/lib/postgresql/data'
+      - 'db:/var/lib/db/data'
 networks:
   default: {}
 volumes:
-  postgres: {}
+  db: {}

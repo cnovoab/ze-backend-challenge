@@ -1,6 +1,6 @@
 {
   "orm": {
-    "database": "ze-backend-challenge-test",
+    "database": "ze-backend-partners-test",
     "logging": false
   }
 }
