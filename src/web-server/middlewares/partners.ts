@@ -7,10 +7,12 @@ import {
   param
 } from 'express-validator';
 
+const CNPJ_REGEXP = /\d{2}\.\d{3}\.\d{3}\/\d{4}\-\d{2}/;
+
 const validationRules = () => [
   body('tradingName').notEmpty(),
   body('ownerName').notEmpty(),
-  body('document').notEmpty(),
+  body('document').notEmpty().matches(CNPJ_REGEXP),
   body('coverageArea.type').equals('MultiPolygon'),
   body('coverageArea.coordinates').isArray(),
   body('address.type').equals('Point'),
