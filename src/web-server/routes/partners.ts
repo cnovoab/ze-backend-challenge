@@ -7,8 +7,12 @@ import { validationRules, validateInput } from '../middlewares/partners';
 const router = Router();
 
 router.get('/:id', async (req: Request, res: Response) => {
-  const partner = await Partner.findOne(req.params.id);
-  res.json({ partner });
+  try {
+    const partner = await Partner.findOneOrFail(req.params.id);
+    res.json({ partner });
+  } catch (error) {
+    res.status(http.NOT_FOUND).json();
+  }
 });
 
 router.post('/', validationRules(), validateInput,

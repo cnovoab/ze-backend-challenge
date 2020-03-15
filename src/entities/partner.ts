@@ -3,11 +3,15 @@ import {
   BaseEntity,
   PrimaryGeneratedColumn,
   Column,
+  Index,
   CreateDateColumn,
   UpdateDateColumn
 } from 'typeorm';
 
-import { MultiPolygon, Point } from 'geojson';
+import {
+  MultiPolygon
+  , Point
+} from 'geojson';
 
 @Entity()
 export default class Partner extends BaseEntity {
@@ -23,10 +27,19 @@ export default class Partner extends BaseEntity {
   @Column({ nullable: false, unique: true })
   document: string;
 
-  @Column({ type: 'json', nullable: false })
+  @Column('geometry', {
+    nullable: false,
+    spatialFeatureType: 'MultiPolygon'
+  })
+  @Index({
+    spatial: true
+  })
   coverageArea: MultiPolygon;
 
-  @Column({ type: 'json', nullable: false })
+  @Column('geometry', {
+    nullable: false,
+    spatialFeatureType: 'Point'
+  })
   address: Point;
 
   @CreateDateColumn({ type: 'timestamptz' })
