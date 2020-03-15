@@ -28,7 +28,7 @@
     "start": "node build",
     "start:dev": "TS_NODE_FILES=true node --inspect=9000 -r ts-node/register src/index.ts",
     "tslint": "tslint -c tslint.json -p tsconfig.json",
-    "test": "NODE_CONFIG_ENV=test jest --runInBand",
+    "test": "NODE_CONFIG_ENV=test jest",
     "test:fast": "NODE_CONFIG_ENV=test jest",
     "pretest": "yarn tslint && NODE_CONFIG_ENV=test yarn migrate",
     "migrate": "typeorm migration:run",
@@ -46,15 +46,17 @@
     "config": "^3.3.0",
     "express": "^4.17.1",
     "express-healthcheck": "^0.1.0",
+    "express-validator": "^6.4.0",
     "geojson": "^0.5.0",
+    "http-status-codes": "^1.4.0",
     "pg": "^7.18.2",
     "raven": "^2.6.4",
-    "typeorm": "^0.2.24"
+    "typeorm": "^0.2.20"
   },
   "devDependencies": {
-    "@types/geojson": "^7946.0.7",
     "@types/config": "^0.0.36",
     "@types/express": "^4.17.3",
+    "@types/geojson": "^7946.0.7",
     "@types/jest": "^25.1.4",
     "@types/node": "^13.9.0",
     "@types/raven": "^2.5.3",

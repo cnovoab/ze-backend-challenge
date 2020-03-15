@@ -12,6 +12,7 @@ if (config.util.getEnv('NODE_CONFIG_ENV') !== 'test') {
   app.use(Raven.errorHandler());
 }
 
+app.use(express.json());
 app.use(config.get('server.baseUrl'), routes);
 
 export let server: Server;
