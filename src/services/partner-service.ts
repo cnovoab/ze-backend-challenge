@@ -21,11 +21,15 @@ export default class PartnerService {
       type: 'Point',
       coordinates: [lat, lng]
     };
-
-    const partner = await Partner.getRepository().createQueryBuilder()
-      .orderBy(
-        'ST_Distance("coverageArea", ST_SetSRID(ST_GeomFromGeoJSON(:origin), ST_SRID("coverageArea")))'
-      )
+    const areaDistanceClause =
+        'ST_Distance("coverageArea", ST_SetSRID(ST_GeomFromGeoJSON(:origin), ST_SRID("coverageArea")))';
+    const addressDistanceClause =
+        'ST_Distance("address", ST_SetSRID(ST_GeomFromGeoJSON(:origin), ST_SRID("address")))';
+    const partner = await Partner
+      .getRepository()
+      .createQueryBuilder()
+      .orderBy(areaDistanceClause)
+      .addOrderBy(addressDistanceClause)
       .setParameter('origin', JSON.stringify(origin))
       .limit(1)
       .getOne();
