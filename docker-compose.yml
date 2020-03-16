@@ -1,0 +1,38 @@
+version: '3.4'
+services:
+  app:
+    build:
+      context: .
+      target: build
+    command: 'yarn watch:cmd node --inspect=9000 -r ts-node/register src/index.ts'
+    depends_on:
+      - db
+    environment:
+      - TS_NODE_FILES=true
+      - NODE_ENV=development
+      - NODE_CONFIG_ENV=development
+      - |
+        NODE_CONFIG={
+          "orm": { "host": "db" }
+        }
+    networks:
+      - default
+    ports:
+      - '4000:4000'
+    volumes:
+      - '.:/code'
+      - /code/node_modules
+  db:
+    image: 'mdillon/postgis:9.6'
+    environment:
+      POSTGRES_DB: ze-backend-partners
+      POSTGRES_PASSWORD: pass
+      POSTGRES_USER: user
+    networks:
+      - default
+    volumes:
+      - 'db:/var/lib/db/data'
+networks:
+  default: {}
+volumes:
+  db: {}

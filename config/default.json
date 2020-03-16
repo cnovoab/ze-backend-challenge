@@ -1,0 +1,20 @@
+{
+  "orm": {
+    "username": "user",
+    "password": "pass",
+    "database": "ze-backend-partners",
+    "host": "localhost",
+    "dialect": "postgresql",
+    "type": "postgres",
+    "port": 5432
+  },
+  "raven": {
+    "dsn": "https://a523dfd2d32749aa99617c5a8fdbc8a0@sentry.io/4461214"
+  },
+  "appName": "ze-backend-challenge",
+  "server": {
+    "port": 4000,
+    "baseUrl": "/ze-backend-challenge",
+    "logFormat": "tiny"
+  }
+}

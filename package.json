@@ -1,0 +1,74 @@
+{
+  "nodemonConfig": {
+    "execMap": {
+      "ts": "ts-node --files"
+    },
+    "quiet": true,
+    "ignore": [
+      "build",
+      ".git"
+    ],
+    "ext": "js,json,ts"
+  },
+  "keywords": [
+    "zx ventures",
+    "ze delivery",
+    "microservice"
+  ],
+  "name": "ze-backend-challenge",
+  "version": "1.0.0",
+  "description": "Ze delivery partners REST api",
+  "main": "index.js",
+  "private": false,
+  "scripts": {
+    "watch": "nodemon -x yarn",
+    "watch:cmd": "nodemon -x",
+    "compile": "tsc",
+    "clean": "rm -rf build/*",
+    "start": "node build",
+    "start:dev": "TS_NODE_FILES=true node --inspect=9000 -r ts-node/register src/index.ts",
+    "tslint": "tslint -c tslint.json -p tsconfig.json",
+    "test": "NODE_CONFIG_ENV=test jest --runInBand",
+    "test:fast": "NODE_CONFIG_ENV=test jest",
+    "pretest": "yarn tslint && NODE_CONFIG_ENV=test yarn migrate",
+    "migrate": "typeorm migration:run",
+    "premigrate": "stat bin/createdb >/dev/null 2>&1 && bin/createdb || echo 'skip createdb'",
+    "typeorm": "node -r ts-node/register ./node_modules/.bin/typeorm",
+    "prestart": "yarn migrate",
+    "prestart:dev": "yarn migrate"
+  },
+  "author": {
+    "name": "Claudio Novoa",
+    "email": "claudio.novoa.b@gmail.com"
+  },
+  "repository": "git@github.com:cnovoab/ze-backend-challenge.git",
+  "dependencies": {
+    "config": "^3.3.0",
+    "express": "^4.17.1",
+    "express-healthcheck": "^0.1.0",
+    "express-validator": "^6.4.0",
+    "geojson": "^0.5.0",
+    "http-status-codes": "^1.4.0",
+    "pg": "^7.18.2",
+    "raven": "^2.6.4",
+    "typeorm": "^0.2.20"
+  },
+  "devDependencies": {
+    "@types/config": "^0.0.36",
+    "@types/express": "^4.17.3",
+    "@types/geojson": "^7946.0.7",
+    "@types/jest": "^25.1.4",
+    "@types/node": "^13.9.0",
+    "@types/raven": "^2.5.3",
+    "@types/supertest": "^2.0.8",
+    "jest": "^25.1.0",
+    "nodemon": "^2.0.2",
+    "supertest": "^4.0.2",
+    "ts-jest": "^25.2.1",
+    "ts-node": "^8.6.2",
+    "tslint": "^6.1.0",
+    "tslint-config-airbnb": "^5.11.2",
+    "typescript": "^3.8.3"
+  },
+  "license": "MIT"
+}
