@@ -14,11 +14,9 @@ module.exports = {
     'src/**/*.{ts,js}',
     '!src/**/*.d.ts',
     '!src/*.ts',
-    '!src/initialization/*.ts',
-    '!src/web-server/*.ts',
-    '!src/web-server/middlewares/*.ts',
     '!src/**/__tests__/**/*.*',
-    '!src/test/**/*.*'
+    '!src/test/**/*.*',
+    '!src/initialization/*.ts',
   ],
   coverageReporters: [
     'text-summary',

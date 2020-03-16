@@ -23,13 +23,13 @@ describe('Partner Service', () => {
 
   test('Find nearest partner', async()  => {
     const partnerIndex = 2;
+    const testPoint = { lat: -38, lng: -3 };
+
     for (const partnerObject of partnersData) {
       await PartnerService.create(partnerObject);
     }
+
     await expect(Partner.count()).resolves.toEqual(partnersData.length);
-
-    const testPoint = { lat: -38, lng: -3 };
-
     await expect(
       PartnerService.findNearest(testPoint.lat, testPoint.lng)
     ).resolves.toHaveProperty('document', partnersData[partnerIndex].document);
