@@ -63,10 +63,10 @@ GET /ze-backend-challenge/partners/search?lat=${latitude}&lng=${longitude}
   address: GeoJSON(Point) // (3)
 }
 ```
-(*) All fields are required
-(1) https://en.wikipedia.org/wiki/CNPJ
-(2) https://geojson.org/geojson-spec.html#point
-(3) https://geojson.org/geojson-spec.html#multipolygon
+All fields are required
+1. https://en.wikipedia.org/wiki/CNPJ
+2. https://geojson.org/geojson-spec.html#point
+3. https://geojson.org/geojson-spec.html#multipolygon
 
 The above schema is utilized to respond to all the endpoint described. 
 Also this schema (except for the id field) must be used as the schema for the payload of the Create Partner endpoint.
