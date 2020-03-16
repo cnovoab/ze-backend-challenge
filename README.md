@@ -56,4 +56,9 @@ GET /ze-backend-challenge/partners/search?lat=${latitude}&lng=${longitude}
 ```
 
 The above schema is utilized to respond to all the endpoint described. Also this schema (except for the id field) must be used as the schema for the payload of the Create Partner endpoint.
-```
+
+### Future Work
+- CI/CD (Github Actions/Heroku)
+- Swagger UI (API documentation)
+- Profile and optimize (if needed) search near partner query
+
