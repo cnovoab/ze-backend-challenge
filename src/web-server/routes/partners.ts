@@ -1,5 +1,5 @@
-/* istanbul ignore file */
 import { Router, Request, Response } from 'express';
+import * as Raven from 'raven';
 import * as http from 'http-status-codes';
 import PartnerService from '../../services/partner-service';
 import {
@@ -16,7 +16,7 @@ router.get('/search', searchRules(), validateInput,
     try {
       const { lat, lng } = req.query;
       const partner = await PartnerService.findNearest(lat, lng);
-      res.json({ partner });
+      res.json({ ...partner });
     } catch (error) {
       res.status(http.NOT_FOUND).json();
     }
@@ -26,7 +26,7 @@ router.get('/:id', findRules(), validateInput,
   async (req: Request, res: Response) => {
     try {
       const partner = await PartnerService.findById(req.params.id);
-      res.json({ partner });
+      res.json({ ...partner });
     } catch (error) {
       res.status(http.NOT_FOUND).json();
     }
@@ -38,6 +38,7 @@ router.post('/', validationRules(), validateInput,
       const partner = await PartnerService.create(req.body);
       res.json({ ...partner });
     } catch (error) {
+      /* istanbul ignore else */
       if (error.message.includes('unique')) {
         return res.status(http.CONFLICT).json({
           errors: [{
@@ -47,7 +48,7 @@ router.post('/', validationRules(), validateInput,
           }]
         });
       }
-      res.status(http.INTERNAL_SERVER_ERROR).json();
+      Raven.captureException(error);
     }
   });
 
