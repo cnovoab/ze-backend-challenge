@@ -16,5 +16,7 @@ jobs:
       run: docker-compose -f docker-compose.yml -f docker-compose.ci.yml up -d
     - name: Check running containers
       run: docker ps -a
+    - name: Check logs
+      run: docker-compose logs app
     - name: Run test suite
-      run: docker-compose exec app yarn test
+      run: docker exec ze-backend-challenge_app_1 yarn test
