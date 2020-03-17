@@ -29,11 +29,15 @@ docker-compose exec app yarn test
 
 ## CI/CD (TODO)
 ```
-- Setup a Github action to run tests on push and pull request event
+~~- Setup a Github action to run tests on push and pull request event~~ Done
 - Setup a github action to deploy master branch on merge event
 ```
 
 ## REST API
+
+### Swagger UI
+For interative API documentation, when server is up, go to:
+http://localhost:4000/ze-backend-challenge/swagger
 
 ### Get partner by ID
 GET /ze-backend-challenge/partners/:id
@@ -74,8 +78,8 @@ The above schema is utilized to respond to all the endpoint described.
 Also this schema (except for the id field) must be used as the schema for the payload of the Create Partner endpoint.
 
 ### Future Work
-- CI/CD (Github Actions/Heroku)
-- Swagger UI (API documentation)
+- ~~CI~~/CD (Github Actions/Heroku) CI Done
+- ~~Swagger UI (API documentation)~~ Done
 - Authentication (JWT)
 - Profile and optimize (if needed) search near partner query
 
