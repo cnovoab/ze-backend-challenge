@@ -12,22 +12,11 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: Build the Postgres stack
-      working-directory: server
-      run: docker-compose up -d
-      env:
-        POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
-        POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
-    - name: Use Node.js
-      uses: actions/setup-node@v1
-      with:
-        node-version: 12
-    - name: yarn install, build, and test
-      working-directory: server
-      run: |
-        yarn install --frozen-lockfile
-        yarn test --verbose
-      env:
-        CI: true
-        POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
-        POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+    - name: Build the docker-compose stack
+      run: docker-compose -f docker-compose.yml up -d
+    - name: Check running containers
+      run: docker ps -a
+    - name: Check logs
+      run: docker-compose logs app
+    - name: Run test suite
+      run: docker exec ze-backend-challenge_app_1 yarn test
