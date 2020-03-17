@@ -38,7 +38,6 @@ router.post('/', validationRules(), validateInput,
       const partner = await PartnerService.create(req.body);
       res.json({ ...partner });
     } catch (error) {
-      /* istanbul ignore else */
       if (error.message.includes('unique')) {
         return res.status(http.CONFLICT).json({
           errors: [{
@@ -48,6 +47,7 @@ router.post('/', validationRules(), validateInput,
           }]
         });
       }
+      /* istanbul ignore next */
       Raven.captureException(error);
     }
   });
