@@ -1,3 +1,5 @@
+![Docker Image CI](https://github.com/cnovoab/ze-backend-challenge/workflows/Docker%20Image%20CI/badge.svg?branch=develop&event=push)
+
 # ze-backend-challenge
 Code challenge for backend position @ ZX Ventures
 
