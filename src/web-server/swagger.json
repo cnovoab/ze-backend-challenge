@@ -1,0 +1,243 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "",
+    "version": "1.0.0",
+    "title": "Ze delivery partners REST API.",
+    "contact": {
+      "email": "claudio.novoa.b@gmail.com"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "host": "localhost:4000",
+  "basePath": "/ze-backend-challenge",
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/partners": {
+      "post": {
+        "tags": [
+          "partner"
+        ],
+        "summary": "Add a new partner",
+        "description": "",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Partner object that needs to be added",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Partner"
+            }
+          }
+        ],
+        "responses": {
+          "405": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/partners/{partnerId}": {
+      "get": {
+        "tags": [
+          "partner"
+        ],
+        "summary": "Find partner by ID",
+        "description": "Returns a single partner",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "partnerId",
+            "in": "path",
+            "description": "ID of partner to return",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/Partner"
+            }
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "Partner not found"
+          }
+        }
+      }
+    },
+    "/partners/search": {
+      "get": {
+        "tags": [
+          "partner"
+        ],
+        "summary": "Find the nearest partner to the specified point",
+        "description": "Returns the nearest partner",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "lat",
+            "in": "query",
+            "description": "latitude of the point of reference",
+            "required": true,
+            "type": "number",
+            "format": "float"
+          },
+          {
+            "name": "lng",
+            "in": "query",
+            "description": "longitude of the point of reference",
+            "required": true,
+            "type": "number",
+            "format": "float"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/Partner"
+            }
+          },
+          "400": {
+            "description": "Invalid point supplied"
+          },
+          "404": {
+            "description": "Partner not found"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Partner": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "tradingName": {
+          "type": "string"
+        },
+        "ownerName": {
+          "type": "string"
+        },
+        "document": {
+          "type": "string",
+          "format": "00.111.222/3333-44"
+        },
+        "coverageArea": {
+          "$ref": "#/definitions/MultiPolygon"
+        },
+        "address": {
+          "$ref": "#/definitions/Point"
+        }
+      }
+    },
+    "Geometry": {
+      "type": "object",
+      "description": "GeoJSon geometry",
+      "discriminator": "type",
+      "required": [
+        "type"
+      ],
+      "externalDocs": {
+        "url": "http://geojson.org/geojson-spec.html#geometry-objects"
+      },
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "Point",
+            "LineString",
+            "Polygon",
+            "MultiPoint",
+            "MultiLineString",
+            "MultiPolygon"
+          ],
+          "description": "the geometry type"
+        }
+      }
+    },
+    "Point2D": {
+      "type": "array",
+      "maxItems": 2,
+      "minItems": 2,
+      "items": {
+        "type": "number"
+      }
+    },
+    "Point": {
+      "type": "object",
+      "description": "GeoJSon geometry",
+      "externalDocs": {
+        "url": "http://geojson.org/geojson-spec.html#id2"
+      },
+      "allOf": [
+        {
+          "$ref": "#/definitions/Geometry"
+        },
+        {
+          "properties": {
+            "coordinates": {
+              "$ref": "#/definitions/Point2D"
+            }
+          }
+        }
+      ]
+    },
+    "MultiPolygon": {
+      "type": "object",
+      "description": "GeoJSon geometry",
+      "externalDocs": {
+        "url": "http://geojson.org/geojson-spec.html#id6"
+      },
+      "allOf": [
+        {
+          "$ref": "#/definitions/Geometry"
+        },
+        {
+          "properties": {
+            "coordinates": {
+              "type": "array",
+              "items": {
+                "type": "array",
+                "items": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/Point2D"
+                  }
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  "externalDocs": {
+    "description": "Find out more about Swagger",
+    "url": "http://swagger.io"
+  }
+}
