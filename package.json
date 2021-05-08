@@ -51,7 +51,7 @@
     "http-status-codes": "^1.4.0",
     "pg": "^7.18.2",
     "raven": "^2.6.4",
-    "typeorm": "^0.2.20"
+    "typeorm": "^0.2.25"
   },
   "devDependencies": {
     "@types/config": "^0.0.36",
