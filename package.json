@@ -44,7 +44,7 @@
   "repository": "git@github.com:cnovoab/ze-backend-challenge.git",
   "dependencies": {
     "config": "^3.3.0",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "express-healthcheck": "^0.1.0",
     "express-validator": "^6.4.0",
     "geojson": "^0.5.0",
